@@ -1,0 +1,603 @@
+import React, { useMemo, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import {
+  CheckCircle2,
+  MapPin,
+  Clock,
+  ShieldCheck,
+  FileSignature,
+  Car,
+  Copy,
+  PhoneCall,
+} from "lucide-react";
+
+export default function SouthBirminghamMobileNotarySite() {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    city: "",
+    service: "",
+    when: "",
+    details: "",
+  });
+
+  const summary = useMemo(() => {
+    const lines = [
+      "South Birmingham Mobile Notary — Appointment Request",
+      "",
+      `Name: ${form.name || ""}`,
+      `Phone: ${form.phone || ""}`,
+      `Email: ${form.email || ""}`,
+      `City/Area: ${form.city || ""}`,
+      `Notary Service Needed: ${form.service || ""}`,
+      `Preferred Date/Time: ${form.when || ""}`,
+      "",
+      "Details:",
+      form.details || "",
+    ];
+    return lines.join("\n");
+  }, [form]);
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(summary);
+      // eslint-disable-next-line no-alert
+      alert("Copied. Paste it into a text message or email to Amanda.");
+    } catch {
+      // eslint-disable-next-line no-alert
+      alert("Couldn’t copy automatically—select and copy the message below.");
+    }
+  };
+
+  const navItems = [
+    { id: "services", label: "Services" },
+    { id: "areas", label: "Service Areas" },
+    { id: "pricing", label: "Pricing" },
+    { id: "faq", label: "FAQ" },
+    { id: "contact", label: "Contact" },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-white text-slate-950">
+      {/* Top Bar */}
+      <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+          <a href="#top" className="flex items-center gap-2">
+            <div className="grid h-10 w-10 place-items-center rounded-2xl bg-slate-950 text-white shadow-sm">
+              <FileSignature className="h-5 w-5" />
+            </div>
+            <div className="leading-tight">
+              <div className="text-sm font-semibold">South Birmingham</div>
+              <div className="text-xs text-slate-600">Mobile Notary</div>
+            </div>
+          </a>
+
+          <nav className="hidden items-center gap-6 md:flex">
+            {navItems.map((n) => (
+              <a
+                key={n.id}
+                href={`#${n.id}`}
+                className="text-sm text-slate-700 hover:text-slate-950"
+              >
+                {n.label}
+              </a>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <Badge className="hidden sm:inline-flex" variant="secondary">
+              <MapPin className="mr-1 h-3.5 w-3.5" /> Hoover • McCalla • Homewood • Vestavia Hills
+            </Badge>
+            <Button asChild className="rounded-2xl">
+              <a href="tel:4045122524">
+                <PhoneCall className="mr-2 h-4 w-4" /> Call Amanda • (404) 512-2524
+              </a>
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section id="top" className="relative">
+        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-14 md:grid-cols-2 md:py-20">
+          <div className="flex flex-col justify-center">
+            <div className="flex flex-wrap items-center gap-2">
+              <Badge variant="secondary" className="rounded-xl">
+                <Car className="mr-1 h-3.5 w-3.5" /> Mobile • We come to you
+              </Badge>
+              <Badge variant="secondary" className="rounded-xl">
+                <Clock className="mr-1 h-3.5 w-3.5" /> Flexible scheduling
+              </Badge>
+              <Badge variant="secondary" className="rounded-xl">
+                <ShieldCheck className="mr-1 h-3.5 w-3.5" /> Professional & discreet
+              </Badge>
+            </div>
+
+            <h1 className="mt-6 font-serif text-4xl font-semibold tracking-tight md:text-5xl">
+              South Birmingham Mobile Notary
+              <span className="block text-slate-600">serving Hoover, McCalla, Homewood & Vestavia Hills</span>
+            </h1>
+
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-slate-700">
+              Need documents notarized without rearranging your whole day? Amanda travels to homes, offices,
+              hospitals, and other agreed locations—so you can sign, stamp, and move on with your life.
+            </p>
+
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <Button asChild className="rounded-2xl">
+                <a href="#contact">Request an appointment</a>
+              </Button>
+              <Button asChild variant="outline" className="rounded-2xl">
+                <a href="#services">See services</a>
+              </Button>
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {["Same-day availability when possible", "Evenings & weekends by request", "Clear, upfront pricing", "Professional, discreet service"].map(
+                (t) => (
+                  <div key={t} className="flex items-start gap-2 rounded-2xl bg-white p-3 shadow-sm">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 text-slate-900" />
+                    <div className="text-sm text-slate-700">{t}</div>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center">
+            <Card className="w-full rounded-3xl border border-slate-200/70 bg-white/80 shadow-sm">
+              <CardContent className="p-6 md:p-8">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-sm font-semibold">Quick Booking</div>
+                    <div className="text-xs text-slate-600">Copy/paste a request in under a minute</div>
+                  </div>
+                  <Badge className="rounded-xl" variant="secondary">
+                    No account needed
+                  </Badge>
+                </div>
+
+                <div className="mt-5 grid gap-3">
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Input
+                      placeholder="Your name"
+                      value={form.name}
+                      onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                    <Input
+                      placeholder="Phone"
+                      value={form.phone}
+                      onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Input
+                      placeholder="Email (optional)"
+                      value={form.email}
+                      onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                    <Input
+                      placeholder="City/Area (Hoover, etc.)"
+                      value={form.city}
+                      onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Input
+                      placeholder="Service needed (e.g., Power of Attorney)"
+                      value={form.service}
+                      onChange={(e) => setForm((f) => ({ ...f, service: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                    <Input
+                      placeholder="Preferred date/time"
+                      value={form.when}
+                      onChange={(e) => setForm((f) => ({ ...f, when: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                  </div>
+
+                  <Textarea
+                    placeholder="Anything important? (number of signers, location type, special instructions)"
+                    value={form.details}
+                    onChange={(e) => setForm((f) => ({ ...f, details: e.target.value }))}
+                    className="min-h-[110px] rounded-2xl"
+                  />
+
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <Button onClick={copyToClipboard} className="rounded-2xl">
+                      <Copy className="mr-2 h-4 w-4" /> Copy request to send
+                    </Button>
+                    <div className="text-xs text-slate-600">
+                      This page doesn’t send messages automatically—copy the request and send it to Amanda by text or email.
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border bg-slate-50 p-3">
+                    <div className="mb-1 text-xs font-semibold text-slate-700">Your message</div>
+                    <pre className="whitespace-pre-wrap break-words text-xs text-slate-700">{summary}</pre>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="services" className="mx-auto max-w-6xl px-4 py-14">
+        <div className="flex flex-col gap-2">
+          <h2 className="font-serif text-2xl font-semibold tracking-tight md:text-3xl">Notary services</h2>
+          <p className="max-w-3xl text-slate-700">
+            Common requests are listed below. If you don’t see your document type, reach out and we’ll confirm what’s needed.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              title: "General notarizations",
+              desc: "Affidavits, acknowledgments, jurats, and more.",
+              icon: <FileSignature className="h-5 w-5" />,
+            },
+            {
+              title: "Real estate documents",
+              desc: "Deeds, mortgage documents, seller packages (as permitted by law).",
+              icon: <CheckCircle2 className="h-5 w-5" />,
+            },
+            {
+              title: "Power of Attorney",
+              desc: "Mobile signing assistance for POA and related forms.",
+              icon: <ShieldCheck className="h-5 w-5" />,
+            },
+            {
+              title: "Healthcare & hospital visits",
+              desc: "Flexible scheduling for facilities and bedside notarizations.",
+              icon: <Clock className="h-5 w-5" />,
+            },
+            {
+              title: "Business notarizations",
+              desc: "Agreements, authorizations, and internal company forms.",
+              icon: <CheckCircle2 className="h-5 w-5" />,
+            },
+            {
+              title: "Traveling to you",
+              desc: "Home, office, coffee shop—wherever is appropriate and agreed.",
+              icon: <Car className="h-5 w-5" />,
+            },
+          ].map((s) => (
+            <Card key={s.title} className="rounded-3xl shadow-sm">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-3">
+                  <div className="grid h-11 w-11 place-items-center rounded-2xl bg-slate-950 text-white">
+                    {s.icon}
+                  </div>
+                  <div>
+                    <div className="text-base font-semibold">{s.title}</div>
+                    <div className="mt-1 text-sm text-slate-700">{s.desc}</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <Card className="mt-6 rounded-3xl">
+          <CardContent className="flex flex-col gap-2 p-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div className="text-sm font-semibold">What to bring</div>
+              <div className="text-sm text-slate-700">
+                Valid government-issued photo ID for each signer • Unsigned documents • All signers present.
+              </div>
+            </div>
+            <Button asChild variant="outline" className="rounded-2xl">
+              <a href="#faq">Read the FAQ</a>
+            </Button>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Areas */}
+      <section id="areas" className="bg-white/70">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">Service areas</h2>
+          <p className="mt-2 max-w-3xl text-slate-700">
+            Primary coverage includes Hoover, McCalla, Homewood, and Vestavia Hills. Nearby areas may be available with a
+            travel fee.
+          </p>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            <Card className="rounded-3xl">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 text-sm font-semibold">
+                  <MapPin className="h-4 w-4" /> Core areas
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {[
+                    "Hoover",
+                    "McCalla",
+                    "Homewood",
+                    "Vestavia Hills",
+                    "Riverchase",
+                    "Bluff Park",
+                    "Ross Bridge",
+                    "Oxmoor",
+                  ].map((a) => (
+                    <Badge key={a} variant="secondary" className="rounded-xl">
+                      {a}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="rounded-3xl">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-2 text-sm font-semibold">
+                  <Clock className="h-4 w-4" /> Typical availability
+                </div>
+                <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4" /> Weekdays: flexible scheduling
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4" /> Evenings/weekends: by request
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4" /> Same-day: when available
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section id="pricing" className="mx-auto max-w-6xl px-4 py-14">
+        <h2 className="font-serif text-2xl font-semibold tracking-tight md:text-3xl">Pricing</h2>
+        <p className="mt-2 max-w-3xl text-slate-700">
+          Final pricing depends on travel distance, number of notarizations, and complexity. Here’s the general setup.
+        </p>
+
+        <div className="mt-8 grid gap-4 lg:grid-cols-3">
+          {[{
+            title: "Notary fee",
+            points: ["Per notarization", "Based on Alabama limits", "Receipts available"],
+          }, {
+            title: "Travel / mobile fee",
+            points: ["Based on distance & time", "Quoted upfront", "No surprise add-ons"],
+          }, {
+            title: "After-hours",
+            points: ["Evenings / weekends", "Same-day rush when available", "Quoted before you book"],
+          }].map((p) => (
+            <Card key={p.title} className="rounded-3xl shadow-sm">
+              <CardContent className="p-6">
+                <div className="text-base font-semibold">{p.title}</div>
+                <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                  {p.points.map((pt) => (
+                    <li key={pt} className="flex items-start gap-2">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4" /> {pt}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        <Card className="mt-6 rounded-3xl">
+          <CardContent className="p-6">
+            <div className="text-sm font-semibold">Heads up (the helpful kind)</div>
+            <p className="mt-1 text-sm text-slate-700">
+              A notary can verify identity and witness signatures—but can’t provide legal advice or tell you what to sign.
+              If you need document guidance, consult an attorney.
+            </p>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* FAQ */}
+      <section id="faq" className="bg-white/70">
+        <div className="mx-auto max-w-6xl px-4 py-14">
+          <h2 className="font-serif text-2xl font-semibold tracking-tight md:text-3xl">FAQ</h2>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-2">
+            {[{
+              q: "Do I sign before you arrive?",
+              a: "Nope. Most documents must be signed in front of the notary. Bring it unsigned unless your form explicitly says otherwise.",
+            }, {
+              q: "What ID is accepted?",
+              a: "A current, government-issued photo ID is standard. If you’re unsure, mention it in your request and we’ll confirm.",
+            }, {
+              q: "Can you notarize for someone in a hospital or assisted living facility?",
+              a: "Often, yes—assuming the signer is alert, willing, and can present valid ID. We’ll coordinate with staff for a smooth visit.",
+            }, {
+              q: "How fast can I get an appointment?",
+              a: "Same-day is sometimes available. The earlier you reach out, the easier it is to fit you in.",
+            }, {
+              q: "Do all signers need to be present?",
+              a: "Yes. Anyone whose signature is being notarized must appear in person with proper ID at the time of notarization.",
+            }, {
+              q: "Do you cover areas outside the four cities listed?",
+              a: "Sometimes. Send your location and we’ll confirm availability and travel fee.",
+            }].map((item) => (
+              <Card key={item.q} className="rounded-3xl shadow-sm">
+                <CardContent className="p-6">
+                  <div className="text-sm font-semibold">{item.q}</div>
+                  <div className="mt-2 text-sm text-slate-700">{item.a}</div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="mx-auto max-w-6xl px-4 py-14">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-1">
+            <h2 className="font-serif text-2xl font-semibold tracking-tight md:text-3xl">Contact Amanda</h2>
+            <a href="tel:4045122524" className="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-slate-900">
+              <PhoneCall className="h-4 w-4" /> (404) 512-2524
+            </a>
+            <p className="mt-2 text-slate-700">
+              Send your request details and preferred time window. If you’re on a deadline, say so—we’ll try to make it
+              happen.
+            </p>
+
+            <Card className="mt-6 rounded-3xl">
+              <CardContent className="p-6">
+                <div className="text-sm font-semibold">What to include</div>
+                <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                  {["City/area and meeting location type", "Type of document(s)", "Number of signers & notarizations", "Preferred date/time", "Best way to reach you"].map(
+                    (x) => (
+                      <li key={x} className="flex items-start gap-2">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4" /> {x}
+                      </li>
+                    )
+                  )}
+                </ul>
+              </CardContent>
+            </Card>
+
+            <div className="mt-6 rounded-3xl border bg-slate-50 p-6">
+              <div className="text-sm font-semibold">Service area</div>
+              <div className="mt-2 text-sm text-slate-700">
+                Hoover • McCalla • Homewood • Vestavia Hills
+              </div>
+              <div className="mt-3 text-xs text-slate-600">
+                Appointments are available throughout South Birmingham and nearby areas when scheduling allows.
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-2">
+            <Card className="rounded-3xl border border-slate-200/70 bg-white/80 shadow-sm">
+              <CardContent className="p-6 md:p-8">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <div className="text-sm font-semibold">Appointment request</div>
+                    <div className="text-xs text-slate-600">Fill this out, then copy the message to send to Amanda.</div>
+                  </div>
+                  <Button onClick={copyToClipboard} variant="outline" className="rounded-2xl">
+                    <Copy className="mr-2 h-4 w-4" /> Copy
+                  </Button>
+                </div>
+
+                <div className="mt-6 grid gap-3">
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Input
+                      placeholder="Your name"
+                      value={form.name}
+                      onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                    <Input
+                      placeholder="Phone"
+                      value={form.phone}
+                      onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Input
+                      placeholder="Email (optional)"
+                      value={form.email}
+                      onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                    <Input
+                      placeholder="City/Area"
+                      value={form.city}
+                      onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                  </div>
+
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <Input
+                      placeholder="Service needed"
+                      value={form.service}
+                      onChange={(e) => setForm((f) => ({ ...f, service: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                    <Input
+                      placeholder="Preferred date/time"
+                      value={form.when}
+                      onChange={(e) => setForm((f) => ({ ...f, when: e.target.value }))}
+                      className="rounded-2xl"
+                    />
+                  </div>
+
+                  <Textarea
+                    placeholder="Details"
+                    value={form.details}
+                    onChange={(e) => setForm((f) => ({ ...f, details: e.target.value }))}
+                    className="min-h-[140px] rounded-2xl"
+                  />
+
+                  <div className="rounded-2xl border bg-slate-50 p-3">
+                    <div className="mb-1 text-xs font-semibold text-slate-700">Your message</div>
+                    <pre className="whitespace-pre-wrap break-words text-xs text-slate-700">{summary}</pre>
+                  </div>
+
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <Button onClick={copyToClipboard} className="rounded-2xl">
+                      <Copy className="mr-2 h-4 w-4" /> Copy request
+                    </Button>
+                    <div className="text-xs text-slate-600">
+                      Add your preferred contact method if you didn’t enter phone/email.
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t bg-white">
+        <div className="mx-auto max-w-6xl px-4 py-10">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+              <div className="grid h-10 w-10 place-items-center rounded-2xl bg-slate-900 text-white">
+                <FileSignature className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="text-sm font-semibold">South Birmingham Mobile Notary</div>
+                <div className="text-xs text-slate-600">Contact: Amanda • <a href="tel:4045122524" className="underline">(404) 512-2524</a></div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {navItems.map((n) => (
+                <Button key={n.id} asChild variant="ghost" className="rounded-2xl">
+                  <a href={`#${n.id}`}>{n.label}</a>
+                </Button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 text-xs text-slate-500">
+            © {new Date().getFullYear()} South Birmingham Mobile Notary. Mobile notary services in Hoover, McCalla,
+            Homewood, and Vestavia Hills.
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
